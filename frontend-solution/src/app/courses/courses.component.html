@@ -1,0 +1,35 @@
+<section class="content-wrap">
+    <div class="headers non-mobile">
+        <h2 style="width: 50%;">course name</h2>
+        <h2 id="header2">prereqs</h2>
+    </div>
+    <div class="headers mobile">
+        <h2>courses</h2>
+    </div>
+    <ul style="height: 38vh; overflow:scroll">
+        <li *ngFor="let course of courses">
+            <div class = "course non-mobile">
+                <p id="course-title">{{ course.subject + " " + course.classId }}</p>
+                <p id="course-prereqs" *ngIf="course.prereqs !== ''; else elseBlock">{{ course.prereqs }}</p>
+                <ng-template style="display: inline;" #elseBlock>None</ng-template>
+            </div>
+            <!-- only shown on mobile breakpoints -->
+            <div class = "course mobile">
+                <p id="course-title">{{ course.subject + " " + course.classId }} </p>
+                <p *ngIf="course.prereqs !== ''; else elseBlockMobile">Prereqs: {{ course.prereqs }} </p>
+                <ng-template #elseBlockMobile style="display: block;">Prereqs: None</ng-template>
+            </div>
+        </li>
+    </ul>
+    <h2>add a course</h2>
+    <div class="flex-container">
+        <input #subject id="subject" class="flex-item required" type="text" placeholder="Subject" style="flex-grow: 1;" required>
+        <input #classId id="classId" class="flex-item required" type="text" placeholder="Class ID" style="flex-grow: 1;" required>
+        <input #prereqs id="prereqs" class="flex-item" id="prereqs" type="text" placeholder="Prereqs" style="flex-grow: 2; margin-right: 0px;">
+    </div>
+    <button class="ripple" (click) = "addCourse(subject.value, classId.value, prereqs.value); subject.value=''; classId.value=''; prereqs.value=''">
+        Add</button>
+</section>
+
+
+
